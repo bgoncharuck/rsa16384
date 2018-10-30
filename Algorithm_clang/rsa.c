@@ -8,11 +8,11 @@
 
 #define throw(MSG) fprintf(stderr, "%s\n",MSG)
 
-static struct __rsa_key {
+struct __rsa_key {
 	bbia * modulus;
 	bbia * exponent;
 }
-static typedef struct __rsa_key rsa_key;
+typedef struct __rsa_key rsa_key;
 
 struct __rsa_public_key {
 	rsa_key * public;
