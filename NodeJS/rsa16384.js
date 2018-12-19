@@ -1,5 +1,6 @@
-const bbi = require ('./bbi/bbi.js');
-let bbif = new bbi();
+let fs = require('fs');
+const {bbi} = require ('./bbi/bbi.js');
+const Constants = require('./bbi/bbi_constants.js');
 
 function key (modulus, exponent) {
 	this.modulus = modulus;
@@ -17,29 +18,31 @@ function encrypted () {
 }
 
 function genarete_keys () {
-	let firstPrime = new bbi();
-	let secondPrime = new bbi();
-
-	let from = new bbi (false, 5);
-	let limit = new bbi ();
-	limit.Set_Max();
+	let firstPrime = randomPrime();
+	let secondPrime = randomPrime();
 
 	while (firstPrime.CompareUnsigned(secondPrime) === 0) {
-		firstPrime.Copy (randomPrime (from, limit));
-		secondPrime.Copy (randomPrime (from, limit));
+		firstPrime = randomPrime();
+		secondPrime = randomPrime();
 	}
 
+	console.log (firstPrime.toBaseOfTwo(64));
+	console.log (secondPrime.toBaseOfTwo(64));
+	/*
 	const modulus = firstPrime.Mult_New (secondPrime);
 
 	let privateKey = new key(modulus,0);
 	let publicKey = new key(modulus,0);
 
 	let totient = eulerTotient (modulus);
-	/*TODO*/
+	// @TODO
 	// if (isPowerOfTwo (modulus)) totient.Bits_ShiftRight (1);
 
 	privateKey.exponent = randomPrime(1, totient);
 	publicKey.exponent = modularMultiplicativeInverse (privateKey.exponent, totient);
 
 	return new twoKeys (publicKey, privateKey);
+	*/
 }
+
+// genarete_keys();
